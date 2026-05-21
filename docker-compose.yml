@@ -12,9 +12,6 @@ services:
       - ./config.json:/app/config.json
     env_file:
       - .env
-    volumes:
-      - ./data:/app/data
-      - ./config.json:/app/config.json:ro
     depends_on:
       db:
         condition: service_healthy
