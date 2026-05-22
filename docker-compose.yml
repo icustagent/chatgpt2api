@@ -24,7 +24,7 @@ services:
           memory: 1G
     networks:
       - chatgpt2api
-      # - apinetwork
+      - apinetwork
 
   db:
     image: postgres:16-alpine
@@ -50,5 +50,5 @@ services:
 networks:
   chatgpt2api:
     name: chatgpt2api
-  # apinetwork:
-  #   name: apinetwork
+  apinetwork:
+    name: apinetwork
