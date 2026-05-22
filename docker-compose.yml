@@ -6,7 +6,7 @@ services:
     image: chatgpt2api:local
     container_name: chatgpt2api-local
     # image: ghcr.io/basketikun/chatgpt2api:latest
-    ## container_name: chatgpt2api
+    # container_name: chatgpt2api
     ports:
       - "3222:80"
     volumes:
@@ -14,6 +14,9 @@ services:
       - ./config.json:/app/config.json
     env_file:
       - .env
+    depends_on:
+      db:
+        condition: service_healthy
     deploy:
       resources:
         limits:
@@ -23,9 +26,31 @@ services:
       - chatgpt2api
       - apinetwork
 
+  db:
+    image: postgres:16-alpine
+    container_name: chatgpt2api-postgres
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - chatgpt2api-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 500m
+    networks:
+      - chatgpt2api
+
 volumes:
   chatgpt2api-data:
-  
+  chatgpt2api-postgres:
+
 networks:
   chatgpt2api:
     name: chatgpt2api
