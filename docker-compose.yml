@@ -10,7 +10,7 @@ services:
     ports:
       - "3222:80"
     volumes:
-      - ./data:/app/data
+      - chatgpt2api-data:/app/data
       - ./config.json:/app/config.json
     env_file:
       - .env
@@ -23,6 +23,9 @@ services:
       - chatgpt2api
       - apinetwork
 
+volumes:
+  chatgpt2api-data:
+  
 networks:
   chatgpt2api:
     name: chatgpt2api
