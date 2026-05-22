@@ -24,10 +24,10 @@ services:
           memory: 1G
     networks:
       - chatgpt2api
-      # - apinetwork
+      - apinetwork
 
 networks:
   chatgpt2api:
     name: chatgpt2api
-  # apinetwork:
-  #   name: apinetwork
+  apinetwork:
+    name: apinetwork
