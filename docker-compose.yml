@@ -1,5 +1,5 @@
 services:
-  chatgpt2api:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
